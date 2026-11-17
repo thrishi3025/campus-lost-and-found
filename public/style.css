@@ -1,28 +1,127 @@
+
+/* ==============================
+   GLOBAL STYLING
+============================== */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f3f6fb;
-    color: #3d2447;
+    background: #f4f1fa;
+    color: #39264a;
+    line-height: 1.6;
 }
+
+/* ==============================
+   HEADER
+============================== */
 
 header {
-    background: #631958;
+    background: #292044;
     color: white;
     text-align: center;
-    padding: 30px 15px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 15px rgba(41, 32, 68, 0.2);
 }
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    letter-spacing: 0.5px;
+}
+
+header p {
+    color: #e9dff5;
+    margin: 10px 0 20px;
+    font-size: 16px;
+}
+
+/* Navigation links */
+
+header nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+header nav a,
+header > a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background: #49366b;
+    padding: 10px 17px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+header nav a:hover,
+header > a:hover {
+    background: #7654a5;
+    transform: translateY(-2px);
+}
+
+/* Login and Register buttons */
+
+header nav a[href*="login"],
+header nav a[href*="register"],
+header > a[href*="login"],
+header > a[href*="register"] {
+    background: #ffffff;
+    color: #49366b;
+    border: 2px solid #ffffff;
+}
+
+header nav a[href*="login"]:hover,
+header nav a[href*="register"]:hover,
+header > a[href*="login"]:hover,
+header > a[href*="register"]:hover {
+    background: #e9dff5;
+    color: #292044;
+}
+
+/* Logout */
+
+header nav a[href*="logout"],
+header > a[href*="logout"] {
+    background: #a329a8;
+    color: white;
+}
+
+/* ==============================
+   MAIN CONTENT
+============================== */
 
 main {
-    max-width: 800px;
+    max-width: 900px;
     margin: 40px auto;
-    padding: 25px;
+    padding: 30px;
     background: white;
-    border-radius: 12px;
+    border-radius: 18px;
+    box-shadow: 0 5px 25px rgba(41, 32, 68, 0.08);
 }
 
-h2, main > p {
+h2 {
+    color: #39264a;
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+main > p {
     text-align: center;
 }
+
+/* ==============================
+   ACTION BUTTONS
+============================== */
 
 .actions {
     display: flex;
@@ -33,37 +132,102 @@ h2, main > p {
 }
 
 button {
-    background: #9b24a6;
+    background: #9234a8;
     color: white;
     border: none;
-    padding: 14px 20px;
-    border-radius: 7px;
+    padding: 13px 21px;
+    border-radius: 9px;
     cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #194863;
+    background: #6f2685;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(111, 38, 133, 0.2);
 }
 
 .secondary {
-    background: #8b647b;
+    background: #7654a5;
 }
+
+/* Claim button */
+
+.claim-btn {
+    background: #25865c;
+    margin-top: 12px;
+}
+
+.claim-btn:hover {
+    background: #176b46;
+}
+
+/* ==============================
+   SEARCH AND FILTERS
+============================== */
+
+#searchInput,
+#typeFilter,
+#categoryFilter,
+#locationFilter {
+    margin-bottom: 10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #9234a8;
+    box-shadow: 0 0 0 3px rgba(146, 52, 168, 0.12);
+}
+
+/* ==============================
+   ITEM CARDS
+============================== */
+
+.item-card {
+    background: #faf8fd;
+    border: 1px solid #e5d9f0;
+    border-left: 5px solid #9234a8;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 18px 0;
+    transition: 0.3s;
+}
+
+.item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(41, 32, 68, 0.1);
+}
+
+.item-card h3 {
+    color: #493366;
+    margin-top: 0;
+}
+
+/* ==============================
+   FORMS
+============================== */
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     max-width: 550px;
     margin: 25px auto 0;
 }
 
-input, select, textarea {
-    box-sizing: border-box;
+input,
+select,
+textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    padding: 13px;
+    border: 1px solid #d8cce5;
+    border-radius: 8px;
     font: inherit;
+    background: #ffffff;
 }
 
 textarea {
@@ -74,22 +238,57 @@ form .actions {
     margin-top: 15px;
 }
 
+/* ==============================
+   MESSAGES
+============================== */
+
 #message {
     text-align: center;
     margin-top: 20px;
+    font-weight: bold;
 }
+
+/* ==============================
+   HIDDEN ELEMENTS
+============================== */
 
 [hidden] {
     display: none !important;
 }
 
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+
 @media (max-width: 600px) {
+    header {
+        padding: 24px 12px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    header nav {
+        gap: 8px;
+    }
+
+    header nav a,
+    header > a {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
     main {
         margin: 20px 12px;
         padding: 20px 15px;
     }
 
-    header {
-        padding: 22px 12px;
+    .actions {
+        gap: 10px;
+    }
+
+    button {
+        padding: 12px 15px;
     }
 }
