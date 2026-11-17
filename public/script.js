@@ -23,6 +23,39 @@ function closeForm() {
     message.textContent = "";
 }
 
+// Submit a claim for a Found item
+async function submitClaim(itemId) {
+    const reason = prompt("Why are you claiming this item?");
+
+    if (!reason || !reason.trim()) {
+        alert("Please enter a claim reason.");
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/claims", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                itemId: itemId,
+                reason: reason.trim()
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || "Claim submission failed");
+        }
+
+        alert("Claim submitted successfully!");
+    } catch (error) {
+        alert(error.message);
+    }
+}
+
 // Load items with all filters
 async function loadItems() {
     itemsList.innerHTML = "<p>Loading items...</p>";
@@ -34,9 +67,6 @@ async function loadItems() {
         params.append("type", typeFilter.value);
         params.append("category", categoryFilter.value);
         params.append("location", locationFilter.value.trim());
-
-        console.log("Location input:", locationFilter.value);
-        console.log("API URL:", "/api/items?" + params.toString());
 
         const response = await fetch("/api/items?" + params.toString(), {
             cache: "no-store"
@@ -83,6 +113,20 @@ async function loadItems() {
             card.appendChild(description);
             card.appendChild(location);
             card.appendChild(date);
+
+            // Add Claim button only for Found items
+            if (item.type === "Found") {
+                const claimButton = document.createElement("button");
+
+                claimButton.textContent = "Claim This Item";
+                claimButton.className = "claim-btn";
+
+                claimButton.addEventListener("click", function () {
+                    submitClaim(item._id);
+                });
+
+                card.appendChild(claimButton);
+            }
 
             itemsList.appendChild(card);
         });
@@ -152,7 +196,6 @@ itemForm.addEventListener("submit", async function (event) {
         message.textContent = "Report saved successfully!";
 
         itemForm.reset();
-
         resetFilters();
 
         reportSection.hidden = true;
@@ -170,6 +213,7 @@ itemForm.addEventListener("submit", async function (event) {
 // Display all items when the page opens
 loadItems();
 
+// Logout
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
