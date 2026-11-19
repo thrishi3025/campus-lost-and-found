@@ -121,6 +121,10 @@ API endpoints and application functionality were tested using Postman, including
 - Updating claim status
 - Viewing items reported by the logged-in user
 
+- ## Live Demo
+
+https://campus-lost-and-found-wu4l.onrender.com
+
 ## Author
 **Thrishika Thota**
 
