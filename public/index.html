@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,19 +12,15 @@
         <h1>Campus Lost & Found</h1>
         <p>Helping students find their lost belongings</p>
 
-
-
-<nav>
-    <a href="login.html">Login</a>
-    <a href="register.html">Register</a>
-    <a href="dashboard.html">Student Dashboard</a>
-    <a href="my-items.html">My Items</a>
-    <a href="my-claims.html">My Claims</a>
-    <a href="admin.html">Admin Dashboard</a>
-    <button type="button" id="logoutBtn">Logout</button>
-</nav>
-
-
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            <a href="dashboard.html">Student Dashboard</a>
+            <a href="my-items.html">My Items</a>
+            <a href="my-claims.html">My Claims</a>
+            <a href="admin.html">Admin Dashboard</a>
+            <button type="button" id="logoutBtn">Logout</button>
+        </nav>
     </header>
 
     <main>
@@ -73,6 +70,16 @@
 
                 <button type="button" onclick="searchItems()">Search</button>
                 <button type="button" onclick="resetFilters()">Show All</button>
+            </div>
+
+            <!-- Sort items by date -->
+            <div class="search-filters">
+                <label for="sortFilter">Sort Items By Date:</label>
+
+                <select id="sortFilter">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
             </div>
 
             <div id="itemsList">

@@ -8,6 +8,7 @@ const searchInput = document.getElementById("searchInput");
 const typeFilter = document.getElementById("typeFilter");
 const categoryFilter = document.getElementById("categoryFilter");
 const locationFilter = document.getElementById("locationFilter");
+const sortFilter = document.getElementById("sortFilter");
 
 function openForm(type) {
     reportSection.hidden = false;
@@ -77,6 +78,17 @@ async function loadItems() {
         }
 
         const items = await response.json();
+        // Sort items by date
+        items.sort(function (a, b) {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+
+            if (sortFilter.value === "oldest") {
+                return dateA - dateB;
+            }
+
+            return dateB - dateA;
+        });
 
         itemsList.innerHTML = "";
 
@@ -209,7 +221,11 @@ itemForm.addEventListener("submit", async function (event) {
             error.message || "Could not save report";
     }
 });
+// Change sorting order
+sortFilter.addEventListener("change", loadItems);
 
+// Display all items when the page opens
+loadItems();
 // Display all items when the page opens
 loadItems();
 
