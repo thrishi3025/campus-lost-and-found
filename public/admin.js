@@ -1,4 +1,30 @@
+
 const adminClaims = document.getElementById("adminClaims");
+
+// Load dashboard statistics
+async function loadAdminStats() {
+    try {
+        const response = await fetch("/api/admin/stats");
+        const stats = await response.json();
+
+        if (!response.ok) {
+            throw new Error(stats.message || "Could not load statistics");
+        }
+
+        document.getElementById("totalItems").textContent = stats.totalItems;
+        document.getElementById("lostItems").textContent = stats.lostItems;
+        document.getElementById("foundItems").textContent = stats.foundItems;
+        document.getElementById("totalClaims").textContent = stats.totalClaims;
+
+    } catch (error) {
+        console.error("Statistics error:", error);
+
+        document.getElementById("totalItems").textContent = "Error";
+        document.getElementById("lostItems").textContent = "Error";
+        document.getElementById("foundItems").textContent = "Error";
+        document.getElementById("totalClaims").textContent = "Error";
+    }
+}
 
 // Load all student claims
 async function loadAdminClaims() {
@@ -64,13 +90,16 @@ async function updateClaim(id, status) {
         }
 
         alert(data.message);
+
         loadAdminClaims();
+        loadAdminStats();
 
     } catch (error) {
         alert(error.message);
     }
 }
 
+// Check admin login
 async function checkAdminLogin() {
     try {
         const response = await fetch("/api/me");
@@ -87,6 +116,8 @@ async function checkAdminLogin() {
             return;
         }
 
+        // Load both dashboard sections
+        loadAdminStats();
         loadAdminClaims();
 
     } catch (error) {
@@ -95,4 +126,3 @@ async function checkAdminLogin() {
 }
 
 checkAdminLogin();
-
