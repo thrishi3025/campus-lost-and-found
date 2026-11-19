@@ -15,7 +15,11 @@ The Campus Lost & Found Portal is a full-stack web application developed to help
 - Admin dashboard
 - Admin item management
 - Admin claim approval and rejection
-
+- Date-based sorting (Newest First and Oldest First)
+- Admin dashboard statistics
+- Duplicate claim prevention
+- Prevention of claiming your own items
+  
 ## Technologies Used
 
 **Frontend**
