@@ -44,6 +44,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 let database;
 // POST: Submit a claim for a found item
+
+// POST: Submit a claim for a found item
 app.post("/api/claims", requireLogin, async (req, res) => {
     try {
         const { itemId, reason } = req.body;
@@ -68,6 +70,26 @@ app.post("/api/claims", requireLogin, async (req, res) => {
         if (!item) {
             return res.status(404).json({
                 message: "Found item not found."
+            });
+        }
+
+        // Prevent students from claiming their own items
+        if (item.studentId === req.session.user.id) {
+            return res.status(403).json({
+                message: "You cannot claim your own item."
+            });
+        }
+
+        // Prevent duplicate pending claims
+        const existingClaim = await database.collection("claims").findOne({
+            itemId: new ObjectId(itemId),
+            studentId: req.session.user.id,
+            status: "Pending"
+        });
+
+        if (existingClaim) {
+            return res.status(409).json({
+                message: "You have already submitted a pending claim for this item."
             });
         }
 
@@ -97,6 +119,7 @@ app.post("/api/claims", requireLogin, async (req, res) => {
         });
     }
 });
+
 
 // Middleware to check whether a student is logged in
 function requireLogin(req, res, next) {
